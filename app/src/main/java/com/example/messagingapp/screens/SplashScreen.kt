@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -29,13 +30,22 @@ fun SplashScreen(navController: NavHostController){
 @Preview
 @Composable
 fun Splash() {
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(modifier=Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Image(
             painterResource(id = R.drawable.dice_chat_logo),
             contentDescription = "Splash screen logo with text",
             Modifier
                 .fillMaxSize()
                 .padding(horizontal = 24.dp)
+        )
+        Image(
+            painterResource(id = R.drawable.by_addev),
+            contentDescription = "dev signature",
+            Modifier
+                .width(136.dp)
+                .padding(12.dp)
+                .align(alignment = Alignment.BottomEnd),
+            Alignment.BottomEnd
         )
     }
 }
