@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 
 @Composable
-fun SignUpScreen(navController: NavHostController) {
+fun ConfirmEmailScreen(navController: NavHostController) {
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Sign Up Screen")
+        Text("Confirmation Email Screen")
     }
 }

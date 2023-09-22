@@ -5,5 +5,10 @@ package com.example.messagingapp.navigation
 //This class is used to define the "destinations" for our navigation
 sealed class AppScreens(val route:String){
     object SplashScreen: AppScreens("splash_screen")
+    object LoginScreen: AppScreens("login_screen")
+    object SignUpScreen: AppScreens("sign_up_screen")
+    object ConfirmEmailScreen: AppScreens("confirm_email_screen")
+    object ForgottenPasswordScreen: AppScreens("forgotten_password_screen")
     object HomeScreen: AppScreens("home_screen")
+    object ChatScreen: AppScreens("chat_screen")
 }
