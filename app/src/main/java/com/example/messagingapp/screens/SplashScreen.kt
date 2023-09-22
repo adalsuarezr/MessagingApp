@@ -3,7 +3,6 @@ package com.example.messagingapp.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,7 +19,7 @@ fun SplashScreen(){
         Image(
             painterResource(id = R.drawable.dice_chat_logo),
             contentDescription = "Splash screen logo with text",
-            Modifier.fillMaxWidth().padding(horizontal = 12.dp)
+            Modifier.fillMaxSize().padding(horizontal = 24.dp)
         )
     }
 }
