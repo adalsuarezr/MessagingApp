@@ -22,7 +22,7 @@ fun SplashScreen(navController: NavHostController){
     LaunchedEffect(key1 = true){    //Todo -- Initialization task should be called here
         delay(1000)
         navController.popBackStack()
-        navController.navigate(AppScreens.HomeScreen.route)
+        navController.navigate(AppScreens.LoginScreen.route)
     }
 
     Splash()
