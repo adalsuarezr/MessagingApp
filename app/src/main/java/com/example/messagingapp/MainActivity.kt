@@ -9,8 +9,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.messagingapp.navigation.AppNavigation
 import com.example.messagingapp.ui.theme.MessagingAppTheme
+import com.example.messagingapp.viewmodels.AuthetificationViewModel
+import com.example.messagingapp.viewmodels.HomeViewModel
 
 class MainActivity : ComponentActivity() {
+    private val authVM = AuthetificationViewModel()
+    private val homeVM = HomeViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -20,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                   AppNavigation()
+                   AppNavigation(authVM,homeVM)
                 }
             }
         }

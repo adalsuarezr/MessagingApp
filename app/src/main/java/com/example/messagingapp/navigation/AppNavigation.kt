@@ -10,14 +10,13 @@ import com.example.messagingapp.viewmodels.AuthetificationViewModel
 import com.example.messagingapp.viewmodels.HomeViewModel
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(authVM: AuthetificationViewModel, homeVM:HomeViewModel) {
     val navController = rememberNavController()
-    val authetificationViewModel= AuthetificationViewModel()
-    val homeViewModel = HomeViewModel()
+
     NavHost(navController = navController, startDestination = AppScreens.SplashScreen.route){
 
         composable(AppScreens.SplashScreen.route){
-            SplashScreen(navController)
+            SplashScreen(navController, authVM)
         }
         composable(AppScreens.HomeScreen.route){
             HomeScreen(navController)
@@ -29,7 +28,7 @@ fun AppNavigation() {
             HomeScreen(navController)
         }
         composable(AppScreens.LoginScreen.route){
-           LoginScreen(navController, authetificationViewModel)
+           LoginScreen(navController, authVM)
         }
         composable(AppScreens.SignUpScreen.route){
             SignUpScreen(navController)

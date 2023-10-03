@@ -6,8 +6,10 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -20,37 +22,44 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.lifecycle.ViewModel
+import com.example.messagingapp.viewmodels.AuthetificationViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTextField(
-    myValue: String,
-    label: String,
-    placeholder: String,
+    value: String,
+    label: @Composable () -> Unit,
+    placeholder: @Composable () -> Unit,
     modifier: Modifier,
-    icon1:ImageVector,
-    icon2:ImageVector,
+    icon1: ImageVector,
+    icon2: ImageVector,
     keyboardType: KeyboardType,
     imeActions: ImeAction,
     focusDirection: FocusDirection,
-    viewModel: ViewModel,
+    viewModel: AuthetificationViewModel,
     focusManager: FocusManager,
-    textFieldColors:TextFieldColors,
-    onTextChanged: (String) -> Unit
+    onTextChanged: (String) -> Unit,
+    validator: () -> Boolean,
+    errorMessage: () -> String?
 ) {
-    val trailingIconVisibility = rememberSaveable { mutableStateOf(true) }
+    val trailingIconVisibility = rememberSaveable { mutableStateOf(false) }
+
 
     OutlinedTextField(
-        value = myValue,
-        onValueChange = {},
-        Modifier.wrapContentWidth(),
-        label = {label},
+
+        value = value,
+        onValueChange = {updatedText -> onTextChanged(updatedText)},
+        modifier = Modifier.wrapContentWidth(),
+        enabled = true,
+        readOnly = false,
+        textStyle = LocalTextStyle.current,
+        label = label,
         placeholder={placeholder},
         leadingIcon = {
             if (trailingIconVisibility.value) {
                 Icon(
-                    icon1, contentDescription = null,
+                    icon1,
+                    contentDescription = null,
                     Modifier.clickable {
                         trailingIconVisibility.value = !trailingIconVisibility.value
                     },
@@ -58,7 +67,8 @@ fun MyTextField(
                 )
             }else{
                 Icon(
-                    icon2, contentDescription = null,
+                    icon2,
+                    contentDescription = null,
                     Modifier.clickable {
                         trailingIconVisibility.value = !trailingIconVisibility.value
                     },
@@ -66,6 +76,8 @@ fun MyTextField(
                 )
             }
         },
+        isError= validator(),
+        supportingText = {errorMessage},
         visualTransformation = if (!trailingIconVisibility.value) {
             VisualTransformation.None
         } else {
@@ -74,6 +86,13 @@ fun MyTextField(
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeActions),
         keyboardActions = KeyboardActions(onNext = {focusManager.moveFocus(focusDirection)}),
-        colors = textFieldColors
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = Color.White,
+            placeholderColor = Color.Gray,
+            unfocusedLabelColor = Color.Gray,
+            focusedLabelColor = Color.Black,
+            unfocusedIndicatorColor = Color.Black,
+            focusedIndicatorColor = MaterialTheme.colorScheme.primary
+        )
     )
 }

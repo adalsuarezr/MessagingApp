@@ -15,10 +15,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.messagingapp.R
 import com.example.messagingapp.navigation.AppScreens
+import com.example.messagingapp.viewmodels.AuthetificationViewModel
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navController: NavHostController){
+fun SplashScreen(navController: NavHostController, authVM: AuthetificationViewModel){
     LaunchedEffect(key1 = true){    //Todo -- Initialization task should be called here
         delay(1000)
         navController.popBackStack()

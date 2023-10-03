@@ -7,52 +7,108 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material.icons.filled.MarkEmailRead
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.messagingapp.R
 import com.example.messagingapp.screens.composables.MyTextField
 import com.example.messagingapp.viewmodels.AuthetificationViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavHostController, viewModel: AuthetificationViewModel) {
     val focusManager = LocalFocusManager.current
-    Column(Modifier.fillMaxSize(),
+    val email: String by viewModel.email.observeAsState(initial = "")
+    val password: String by viewModel.password.observeAsState(initial = "")
+    val repeatPassword: String by viewModel.repeatPassword.observeAsState(initial = "")
+    var context = LocalContext.current
+    Column(
+        Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        Text("Login")
-        MyTextField(    //Todo no strings hardcoded
-            "Email", "Email",
-            "Email",
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        //Screen label
+        Text(
+            stringResource(id = R.string.login),
+            Modifier.padding(vertical = 8.dp),
+            fontWeight = FontWeight.Bold,
+            fontSize = 24.sp,
+            color = Color(0xFFFF6213)
+        )
+        //Email TextField
+        MyTextField(
+            email,
+            { Text(stringResource(id = R.string.email)) },
+            { Text(stringResource(id = R.string.email_placeholder)) },
             Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp, vertical = 12.dp),
+            Icons.Filled.MarkEmailRead,
             Icons.Filled.Email,
-            Icons.Filled.Email, //Todo Import extended icon
             KeyboardType.Email,
             ImeAction.Next,
             FocusDirection.Down,
             viewModel,
             focusManager,
-            TextFieldDefaults.textFieldColors(
-                containerColor = Color.White,
-                placeholderColor = Color.Gray,
-                unfocusedLabelColor = Color.Gray,
-                focusedLabelColor = Color.Black,
-                unfocusedIndicatorColor = Color.Black,
-                focusedIndicatorColor = MaterialTheme.colorScheme.primary
-            )
-        ) {}
+            onTextChanged = {updatedText->viewModel.onEmailChanged(updatedText) },
+            validator = { viewModel.emailValidator(email) },
+            errorMessage = {viewModel.emailErrorMessage(email)}
+        )
+
+        //Password TextField
+        MyTextField(
+            password,
+            { Text(stringResource(id = R.string.password)) },
+            { Text(stringResource(id = R.string.password_placeholder)) },
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp, vertical = 12.dp),
+            Icons.Filled.Visibility,
+            Icons.Filled.VisibilityOff,
+            KeyboardType.Password,
+            ImeAction.Next,
+            FocusDirection.Down,
+            viewModel,
+            focusManager,
+            onTextChanged = {password->viewModel.onPasswordChanged(password) },
+            validator = { viewModel.passwordValidator(password) },
+            errorMessage = { viewModel.passwordErrorMessage(password) }
+        )
+
+        //RepeatPassword TextField
+        MyTextField(
+            repeatPassword,
+            { Text(stringResource(id = R.string.repeat_password)) },
+            { Text(stringResource(id = R.string.repeat_password_placeholder)) },
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp, vertical = 12.dp),
+            Icons.Filled.Visibility,
+            Icons.Filled.VisibilityOff,
+            KeyboardType.Password,
+            ImeAction.Next,
+            FocusDirection.Down,
+            viewModel,
+            focusManager,
+            onTextChanged = {repeatPassword -> viewModel.onRepeatPasswordChanged(repeatPassword) },
+            validator = { viewModel.repeatPasswordValidator(password) },
+            errorMessage = { viewModel.repeatPasswordErrorMessage(password) }
+        )
     }
 }
