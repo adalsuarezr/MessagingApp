@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.MarkEmailRead
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,7 +18,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
@@ -37,7 +37,7 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
     val repeatPassword: String by viewModel.repeatPassword.observeAsState(initial = "")
-    var context = LocalContext.current
+    val context = LocalContext.current
     Column(
         Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top,
@@ -49,7 +49,7 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
             Modifier.padding(vertical = 8.dp),
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
-            color = Color(0xFFFF6213)
+            color = MaterialTheme.colorScheme.primary
         )
         //Email TextField
         MyTextField(
@@ -68,7 +68,7 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
             focusManager,
             onTextChanged = {updatedText->viewModel.onEmailChanged(updatedText) },
             validator = { viewModel.emailValidator(email) },
-            errorMessage = {viewModel.emailErrorMessage(email)}
+            errorMessage = {viewModel.emailErrorMessage(context, email)}
         )
 
         //Password TextField
@@ -79,8 +79,8 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
             Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp, vertical = 12.dp),
-            Icons.Filled.Visibility,
             Icons.Filled.VisibilityOff,
+            Icons.Filled.Visibility,
             KeyboardType.Password,
             ImeAction.Next,
             FocusDirection.Down,
@@ -88,9 +88,9 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
             focusManager,
             onTextChanged = {password->viewModel.onPasswordChanged(password) },
             validator = { viewModel.passwordValidator(password) },
-            errorMessage = { viewModel.passwordErrorMessage(password) }
+            errorMessage = { viewModel.passwordErrorMessage(context,password) }
         )
-
+/*
         //RepeatPassword TextField
         MyTextField(
             repeatPassword,
@@ -109,6 +109,6 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
             onTextChanged = {repeatPassword -> viewModel.onRepeatPasswordChanged(repeatPassword) },
             validator = { viewModel.repeatPasswordValidator(password) },
             errorMessage = { viewModel.repeatPasswordErrorMessage(password) }
-        )
+        )*/
     }
 }

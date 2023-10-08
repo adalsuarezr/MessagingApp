@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MessagingApp</string>
+
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+
+    <string name="email">Email</string>
+    <string name="email_placeholder">Introduce tu email</string>
+
+    <string name="password">Password</string>
+    <string name="password_placeholder">Introduce tu password</string>
+
+    <string name="repeat_password">Password</string>
+    <string name="repeat_password_placeholder">Confirma tu password</string>
+
+    <string name="email_error_format">Formato de email erroneo</string>
+
+    <string name="password_error_too_long">Password demasiado larga</string>
+    <string name="password_error_too_short">Password demasiado corta</string>
+    <string name="password_error_no_characters">Incluye al menos una letra</string>
+    <string name="password_error_no_numbers">Incluye al menos un número</string>
+
+    <string name="repeat_password_error_match">Las contraseñas no son iguales</string>
+
+    <string name="field_error_empty">Los campos no pueden estar vacios</string>
+</resources>

@@ -1,10 +1,13 @@
 package com.example.messagingapp.viewmodels
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.messagingapp.R
 
 class AuthetificationViewModel: ViewModel() {
+
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
 
@@ -38,28 +41,32 @@ class AuthetificationViewModel: ViewModel() {
 
     fun repeatPasswordValidator(repeatPassword: String) = repeatPassword==password.value.toString()
 
-    fun emailErrorMessage(email: String): String {
+    fun emailErrorMessage(context:Context, email: String): String {
         val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
         return when {
-            !email.matches(emailRegex.toRegex()) -> "Invalid email format"
+            !email.matches(emailRegex.toRegex()) && email.isNotBlank() -> context.getString(R.string.email_error_format)
             else -> ""
         }
     }
-    fun passwordErrorMessage(password:String):String {
+    fun passwordErrorMessage(context:Context, password:String):String {
 
         return when {
-            password.length<8 -> "Password too short"
-            password.length>20 -> "Password too long"
+            password.length<8 && password.isNotBlank() ->
+                context.getString(R.string.password_error_too_short)
+            password.length>20 ->
+                context.getString(R.string.password_error_too_long)
             //No numbers
-            password.matches(("^[^0-9]*$").toRegex())->"Include at least a number"
+            password.matches(("^[^0-9]*$").toRegex()) && password.isNotBlank() ->
+                context.getString(R.string.password_error_no_numbers)
             //No letters
-            password.matches(("^[^a-zA-Z]*$").toRegex())->"Include at least a letter"
+            password.matches(("^[^a-zA-Z]*$").toRegex()) && password.isNotBlank()->
+                context.getString(R.string.password_error_no_characters)
             else->""
         }
     }
-    fun repeatPasswordErrorMessage(repeatPassword:String):String{
-        return if(repeatPassword!=password.value.toString()){
-            "Passwords are not equal"
+    fun repeatPasswordErrorMessage(context:Context, repeatPassword:String):String{
+        return if(repeatPassword!=password.value.toString() && repeatPassword.isNotBlank()){
+            context.getString(R.string.repeat_password_error_match)
         }else{
             ""
         }
