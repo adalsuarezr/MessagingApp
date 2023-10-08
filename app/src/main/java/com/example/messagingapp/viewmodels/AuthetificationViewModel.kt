@@ -17,6 +17,8 @@ class AuthetificationViewModel: ViewModel() {
     private val _repeatPassword = MutableLiveData<String>()
     val repeatPassword: LiveData<String> = _repeatPassword
 
+    private var accessButtonClicked = true;
+
     fun onEmailChanged(email: String) {
         _email.value = email
     }
@@ -44,13 +46,18 @@ class AuthetificationViewModel: ViewModel() {
     fun emailErrorMessage(context:Context, email: String): String {
         val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
         return when {
-            !email.matches(emailRegex.toRegex()) && email.isNotBlank() -> context.getString(R.string.email_error_format)
+            !email.matches(emailRegex.toRegex()) && email.isNotBlank() ->
+                context.getString(R.string.email_error_format)
+            email.isBlank() && accessButtonClicked ->
+                context.getString(R.string.field_error_empty)
             else -> ""
         }
     }
     fun passwordErrorMessage(context:Context, password:String):String {
 
         return when {
+            password.isBlank() && accessButtonClicked ->
+                context.getString(R.string.field_error_empty)
             password.length<8 && password.isNotBlank() ->
                 context.getString(R.string.password_error_too_short)
             password.length>20 ->
