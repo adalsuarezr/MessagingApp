@@ -1,7 +1,6 @@
 package com.example.messagingapp.screens.composables
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -61,7 +60,6 @@ fun MyTextField(
         value = value,
         onValueChange = {updatedText -> onTextChanged(updatedText)},
         modifier = Modifier
-            .wrapContentWidth()
             .focusRequester(focusRequester)
             .onFocusChanged {
                 focusColor = if (it.isFocused) focusColorDefault else Color.Gray

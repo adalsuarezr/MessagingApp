@@ -4,6 +4,8 @@
 
     <string name="login">Login</string>
     <string name="sign_up">Sign Up</string>
+    <string name="dont_have_account">No tienes una cuenta?</string>
+    <string name="or">O</string>
 
     <string name="email">Email</string>
     <string name="email_placeholder">Introduce tu email</string>
