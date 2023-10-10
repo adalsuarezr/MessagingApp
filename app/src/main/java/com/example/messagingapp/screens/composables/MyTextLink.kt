@@ -13,7 +13,9 @@ fun MyTextLink(text: String, modifier: Modifier, navController: NavHostControlle
     Text(
         text=text,
         modifier = modifier
-            .clickable { navController.navigate(route) },
+            .clickable {
+                navController.popBackStack()
+                navController.navigate(route) },
         color = MaterialTheme.colorScheme.primary,
         fontWeight = FontWeight.Bold)
 }
