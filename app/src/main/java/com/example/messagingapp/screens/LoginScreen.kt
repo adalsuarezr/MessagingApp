@@ -121,18 +121,16 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
         //LoginButton. Access to Home
         MyAccessButton(
             text = stringResource(id = R.string.login),
-            viewModel = viewModel,
             onClick = {
                 navController.popBackStack()
-                navController.navigate(AppScreens.HomeScreen.route)
+                navController.navigate(AppScreens.VerifyAccountScreen.route)
             },
             enabled=
-                viewModel.enableLogin()
-            ,
+                viewModel.enableLogin(),
             Modifier
                 .fillMaxWidth(0.70f)
-                .padding(vertical = 12.dp),
-            navController = navController)
+                .padding(vertical = 12.dp)
+        )
 
         //Dividers plus or
         Row(

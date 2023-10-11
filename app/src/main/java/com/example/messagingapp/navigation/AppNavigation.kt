@@ -33,8 +33,8 @@ fun AppNavigation(authVM: AuthetificationViewModel, homeVM:HomeViewModel) {
         composable(AppScreens.SignUpScreen.route){
             SignUpScreen(navController, authVM)
         }
-        composable(AppScreens.ConfirmEmailScreen.route){
-            ConfirmEmailScreen(navController)
+        composable(AppScreens.VerifyAccountScreen.route){
+            VerifyAccountScreen(navController)
         }
         composable(AppScreens.ForgottenPasswordScreen.route){
             ForgottenPasswordScreen(navController)

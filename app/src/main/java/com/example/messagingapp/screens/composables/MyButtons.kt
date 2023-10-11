@@ -8,20 +8,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.navigation.NavHostController
-import com.example.messagingapp.viewmodels.AuthetificationViewModel
 
 @Composable
 fun MyAccessButton(
-    text:String,
-    viewModel: AuthetificationViewModel,
+    text: String,
     onClick: () -> Unit,
     enabled: Boolean,
-    modifier:Modifier,
-    navController: NavHostController){
+    modifier: Modifier
+){
     TextButton(
         onClick = {
-            onClick
+            onClick()
         },
         modifier,
         colors = ButtonDefaults.buttonColors(

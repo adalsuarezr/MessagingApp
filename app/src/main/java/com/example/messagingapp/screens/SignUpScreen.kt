@@ -111,8 +111,8 @@ fun SignUpScreen(navController: NavHostController, viewModel: AuthetificationVie
             Modifier
                 .fillMaxWidth(0.80f)
                 .padding(vertical = 12.dp),
-            Icons.Filled.Visibility,
             Icons.Filled.VisibilityOff,
+            Icons.Filled.Visibility,
             KeyboardType.Password,
             ImeAction.Next,
             FocusDirection.Down,
@@ -142,18 +142,16 @@ fun SignUpScreen(navController: NavHostController, viewModel: AuthetificationVie
         //LoginButton. Access to Home
         MyAccessButton(
             text = stringResource(id = R.string.sign_up),
-            viewModel = viewModel,
             onClick = {
                 navController.popBackStack()
-                navController.navigate(AppScreens.HomeScreen.route)
+                navController.navigate(AppScreens.VerifyAccountScreen.route)
             },
             enabled=
-            viewModel.enableSignUp()
-            ,
+            viewModel.enableSignUp(),
             Modifier
                 .fillMaxWidth(0.70f)
-                .padding(vertical = 12.dp),
-            navController = navController)
+                .padding(vertical = 12.dp)
+        )
 
         //Dividers plus or
         Row(
