@@ -1,10 +1,14 @@
 package com.example.messagingapp.viewmodels
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import com.example.messagingapp.R
+import com.example.messagingapp.domain.FirebaseRepositoryImpl
+import com.example.messagingapp.navigation.AppScreens
 
 class AuthetificationViewModel: ViewModel() {
 
@@ -16,6 +20,8 @@ class AuthetificationViewModel: ViewModel() {
 
     private val _repeatPassword = MutableLiveData<String>()
     val repeatPassword: LiveData<String> = _repeatPassword
+
+    private val repository = FirebaseRepositoryImpl()
 
     fun onEmailChanged(email: String) {
         _email.value = email
@@ -80,4 +86,20 @@ class AuthetificationViewModel: ViewModel() {
     fun enableSignUp(): Boolean {
         return emailValidator(email.value.toString()) && passwordValidator(password.value.toString()) && repeatPasswordValidator(repeatPassword.value.toString())
     }
+
+    fun createAccountEmailPassword(context: Context, navController: NavController){
+        repository.createUserEmailPassword(_email.value.toString(),_password.value.toString()){success->
+            if(success){
+                navController.popBackStack()
+                navController.navigate(AppScreens.VerifyAccountScreen.route)
+            }else{
+                makeToast(context, "Failed to create account", Toast.LENGTH_LONG)
+            }
+
+        }
+    }
+    private fun makeToast(context: Context, message: String, length: Int){
+        Toast.makeText(context,message,length).show()
+    }
+
 }

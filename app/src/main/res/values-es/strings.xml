@@ -24,6 +24,7 @@
     <string name="password_error_too_short">Password demasiado corta</string>
     <string name="password_error_no_characters">Incluye al menos una letra</string>
     <string name="password_error_no_numbers">Incluye al menos un número</string>
+    <string name="create_account_error">No se ha podido crear la cuenta. Intentelo más tarde</string>
 
     <string name="repeat_password_error_match">Las contraseñas no son iguales</string>
 

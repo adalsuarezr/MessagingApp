@@ -143,8 +143,7 @@ fun SignUpScreen(navController: NavHostController, viewModel: AuthetificationVie
         MyAccessButton(
             text = stringResource(id = R.string.sign_up),
             onClick = {
-                navController.popBackStack()
-                navController.navigate(AppScreens.VerifyAccountScreen.route)
+                viewModel.createAccountEmailPassword(context,navController)
             },
             enabled=
             viewModel.enableSignUp(),

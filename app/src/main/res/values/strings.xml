@@ -20,6 +20,7 @@
     <string name="password_error_no_characters">Include at least a letter</string>
     <string name="password_error_no_numbers">Include at least a number</string>
     <string name="repeat_password_error_match">Passwords doesn\'t match</string>
+    <string name="create_account_error">We couldn\'t create an account. Try it later</string>
     <string name="field_error_empty">Fields cannot be empty</string>
 
     //Acount verification
