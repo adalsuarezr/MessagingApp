@@ -9,9 +9,11 @@ import androidx.navigation.NavController
 import com.example.messagingapp.R
 import com.example.messagingapp.domain.FirebaseRepositoryImpl
 import com.example.messagingapp.navigation.AppScreens
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class AuthetificationViewModel: ViewModel() {
-
+@HiltViewModel
+class AuthetificationViewModel @Inject constructor(private val repository: FirebaseRepositoryImpl): ViewModel() {
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
 
@@ -21,7 +23,12 @@ class AuthetificationViewModel: ViewModel() {
     private val _repeatPassword = MutableLiveData<String>()
     val repeatPassword: LiveData<String> = _repeatPassword
 
-    private val repository = FirebaseRepositoryImpl()
+    private val _isEmailVerified = MutableLiveData<Boolean>(false)
+    val isEmailVerified: LiveData<Boolean> = _isEmailVerified
+
+    init {
+        repository.isEmailVerified.observeForever{ _isEmailVerified.value=it }
+    }
 
     fun onEmailChanged(email: String) {
         _email.value = email
@@ -98,8 +105,27 @@ class AuthetificationViewModel: ViewModel() {
 
         }
     }
+
+    fun loginUserEmailPassword(context: Context, navController: NavController){
+        repository.loginUserEmailPassword(_email.value.toString(),_password.value.toString()){success->
+            if(success){
+                if(isEmailVerified.value==true){
+                    navController.popBackStack()
+                    navController.navigate(AppScreens.HomeScreen.route)
+                }else if(isEmailVerified.value==false){
+                navController.popBackStack()
+                navController.navigate(AppScreens.VerifyAccountScreen.route)
+                }
+            }else{
+                makeToast(context, "Failed to login", Toast.LENGTH_LONG)
+            }
+        }
+    }
+
+
     private fun makeToast(context: Context, message: String, length: Int){
         Toast.makeText(context,message,length).show()
     }
+
 
 }

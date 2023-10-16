@@ -49,6 +49,7 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
     val context = LocalContext.current
+    //val isEmailVerified by viewModel.isEmailVerified.observeAsState(initial = false)
     Column(
         Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top,
@@ -122,8 +123,7 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
         MyAccessButton(
             text = stringResource(id = R.string.login),
             onClick = {
-                navController.popBackStack()
-                navController.navigate(AppScreens.VerifyAccountScreen.route)
+                viewModel.loginUserEmailPassword(context, navController)
             },
             enabled=
                 viewModel.enableLogin(),
