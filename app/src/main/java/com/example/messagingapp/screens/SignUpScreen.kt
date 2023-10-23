@@ -51,7 +51,7 @@ fun SignUpScreen(navController: NavHostController, viewModel: AuthetificationVie
     val repeatPassword: String by viewModel.repeatPassword.observeAsState(initial = "")
     val context = LocalContext.current
     Column(
-        Modifier.fillMaxSize(),
+        Modifier.fillMaxSize().padding(top=24.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

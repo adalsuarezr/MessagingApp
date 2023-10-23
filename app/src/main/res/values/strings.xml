@@ -6,6 +6,9 @@
     <string name="sign_up">Sign Up</string>
     <string name="dont_have_account">Don\'t have an account?</string>
     <string name="have_account">Do you have an account?</string>
+    <string name="forgot_password">Forgotten password?</string>
+    <string name="forgot_password_instructions">Enter your email and new password and we\'ll send you an email to reset your password</string>
+    <string name="reset_password">Reset password</string>
     <string name="go_back_to">Or go back to</string>
     <string name="or">OR</string>
     <string name="email">Email</string>

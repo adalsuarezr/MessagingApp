@@ -51,7 +51,7 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
     val context = LocalContext.current
     //val isEmailVerified by viewModel.isEmailVerified.observeAsState(initial = false)
     Column(
-        Modifier.fillMaxSize(),
+        Modifier.fillMaxSize().padding(top=24.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -117,8 +117,7 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
                 navController,
                 AppScreens.SignUpScreen.route)
         }
-        
-        
+
         //LoginButton. Access to Home
         MyAccessButton(
             text = stringResource(id = R.string.login),
@@ -132,7 +131,14 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
                 .padding(vertical = 12.dp)
         )
 
-        //Dividers plus or
+        //Forgot password. Access ForgottenPasswordScreen
+        MyTextLink(
+            text = stringResource(id = R.string.forgot_password),
+            Modifier.padding(vertical = 12.dp),
+            navController,
+            AppScreens.ForgottenPasswordScreen.route)
+
+        //Divider
         Row(
             modifier = Modifier
                 .fillMaxWidth(0.8f)
@@ -165,7 +171,11 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
         }
 
         //Google, Facebook and X buttons
-        Row (Modifier.fillMaxWidth().padding(vertical=12.dp, horizontal = 24.dp), horizontalArrangement = Arrangement.SpaceAround){
+        Row (Modifier
+            .fillMaxWidth()
+            .padding(vertical=12.dp,
+                horizontal = 24.dp),
+                horizontalArrangement = Arrangement.SpaceAround){
             Image(
                 painterResource(id = R.drawable.google_192),
                 contentDescription = "dev signature",
@@ -194,9 +204,7 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
                     .weight(1f)
                     .padding(end = 0.dp)
             )
-
         }
-
     }
 }
 

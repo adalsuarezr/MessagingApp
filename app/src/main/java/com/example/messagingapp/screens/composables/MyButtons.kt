@@ -2,8 +2,8 @@ package com.example.messagingapp.screens.composables
 
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,7 +16,7 @@ fun MyAccessButton(
     enabled: Boolean,
     modifier: Modifier
 ){
-    TextButton(
+    OutlinedButton(
         onClick = {
             onClick()
         },

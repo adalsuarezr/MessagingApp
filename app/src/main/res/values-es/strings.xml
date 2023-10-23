@@ -12,12 +12,15 @@
     <string name="email">Email</string>
     <string name="email_placeholder">Introduce tu email</string>
 
-    <string name="password">Password</string>
-    <string name="password_placeholder">Introduce tu password</string>
+    <string name="password">Contraseña</string>
+    <string name="password_placeholder">Introduce tu contraseña</string>
 
     <string name="repeat_password">Password</string>
     <string name="repeat_password_placeholder">Confirma tu password</string>
 
+    <string name="forgot_password">Contraseña olvidada?</string>
+    <string name="forgot_password_instructions">Introduce tu email y tu nueva contraseña y te enviaremos un email de confirmación</string>
+    <string name="reset_password">Cambiar contraseña</string>
     <string name="email_error_format">Formato de email erroneo</string>
 
     <string name="password_error_too_long">Password demasiado larga</string>

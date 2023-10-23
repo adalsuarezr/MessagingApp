@@ -94,30 +94,30 @@ class AuthetificationViewModel @Inject constructor(private val repository: Fireb
         return emailValidator(email.value.toString()) && passwordValidator(password.value.toString()) && repeatPasswordValidator(repeatPassword.value.toString())
     }
 
-    fun createAccountEmailPassword(context: Context, navController: NavController){
-        repository.createUserEmailPassword(_email.value.toString(),_password.value.toString()){success->
-            if(success){
+    fun createAccountEmailPassword(context: Context, navController: NavController) {
+        repository.createUserEmailPassword(_email.value.toString(), _password.value.toString()) { success, errorMessage ->
+            if (success) {
                 navController.popBackStack()
                 navController.navigate(AppScreens.VerifyAccountScreen.route)
-            }else{
-                makeToast(context, "Failed to create account", Toast.LENGTH_LONG)
+            } else {
+                makeToast(context, "Failed to create account: $errorMessage", Toast.LENGTH_LONG)
             }
-
         }
     }
 
     fun loginUserEmailPassword(context: Context, navController: NavController){
-        repository.loginUserEmailPassword(_email.value.toString(),_password.value.toString()){success->
+        repository.loginUserEmailPassword(_email.value.toString(),_password.value.toString()){success, errorMessage->
             if(success){
                 if(isEmailVerified.value==true){
                     navController.popBackStack()
                     navController.navigate(AppScreens.HomeScreen.route)
                 }else if(isEmailVerified.value==false){
-                navController.popBackStack()
-                navController.navigate(AppScreens.VerifyAccountScreen.route)
+                    repository.sendVerificationEmail()
+                    navController.popBackStack()
+                    navController.navigate(AppScreens.VerifyAccountScreen.route)
                 }
-            }else{
-                makeToast(context, "Failed to login", Toast.LENGTH_LONG)
+            } else {
+                makeToast(context, "Failed to login: $errorMessage", Toast.LENGTH_LONG)
             }
         }
     }
@@ -127,5 +127,19 @@ class AuthetificationViewModel @Inject constructor(private val repository: Fireb
         Toast.makeText(context,message,length).show()
     }
 
-
+    fun sendPasswordReset(context: Context, navController: NavController){
+        repository.sendPasswordResetEmail(email.value.toString()){success, errorMessage ->
+            if (success) {
+                if(repository.checkIfEmailVerified()){
+                    navController.popBackStack()
+                    navController.navigate(AppScreens.HomeScreen.route)
+                } else{
+                navController.popBackStack()
+                navController.navigate(AppScreens.ForgottenPasswordScreen.route)
+                }
+            } else {
+                makeToast(context, "Failed to send reset password email: $errorMessage", Toast.LENGTH_LONG)
+            }
+        }
+    }
 }
