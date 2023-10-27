@@ -22,16 +22,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.messagingapp.R
 import com.example.messagingapp.screens.composables.MyAccessButton
 import com.example.messagingapp.screens.composables.MyTextField
-import com.example.messagingapp.viewmodels.AuthetificationViewModel
+import com.example.messagingapp.viewmodels.AuthenticationViewModel
 
 @Composable
-fun ForgottenPasswordScreen(navController: NavHostController, viewModel: AuthetificationViewModel) {
+fun ForgottenPasswordScreen(navController: NavHostController, viewModel: AuthenticationViewModel) {
     val focusManager = LocalFocusManager.current
     val email: String by viewModel.email.observeAsState(initial = "")
 
@@ -45,14 +46,15 @@ fun ForgottenPasswordScreen(navController: NavHostController, viewModel: Autheti
         //Screen label
         Text(
             stringResource(id = R.string.forgot_password).uppercase(),
-            Modifier.padding(vertical = 12.dp),
+            Modifier.padding(12.dp),
             fontWeight = FontWeight.Bold,
-            fontSize = 32.sp,
+            fontSize = 30.sp,
             color = MaterialTheme.colorScheme.primary
         )
         Text(
-            stringResource(id = R.string.forgot_password).uppercase(),
-            Modifier.padding(vertical = 12.dp),
+            stringResource(id = R.string.forgot_password_instructions).uppercase(),
+            Modifier.padding(12.dp),
+            textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
         )

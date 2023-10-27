@@ -30,7 +30,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.example.messagingapp.viewmodels.AuthetificationViewModel
+import com.example.messagingapp.viewmodels.AuthenticationViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,7 +44,7 @@ fun MyTextField(
     keyboardType: KeyboardType,
     imeActions: ImeAction,
     focusDirection: FocusDirection,
-    viewModel: AuthetificationViewModel,
+    viewModel: AuthenticationViewModel,
     focusManager: FocusManager,
     onTextChanged: (String) -> Unit,
     validator: () -> Boolean,

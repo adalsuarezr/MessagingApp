@@ -9,13 +9,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 
 @Composable
-fun MyTextLink(text: String, modifier: Modifier, navController: NavHostController, route: String,) {
+fun MyTextLink(text: String, modifier: Modifier, navController: NavHostController, route: String) {
     Text(
         text=text,
         modifier = modifier
             .clickable {
                 navController.popBackStack()
-                navController.navigate(route) },
+                navController.navigate(route)},
         color = MaterialTheme.colorScheme.primary,
         fontWeight = FontWeight.Bold)
 }

@@ -5,15 +5,18 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.messagingapp.R
 import com.example.messagingapp.domain.FirebaseRepositoryImpl
 import com.example.messagingapp.navigation.AppScreens
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthetificationViewModel @Inject constructor(private val repository: FirebaseRepositoryImpl): ViewModel() {
+class AuthenticationViewModel @Inject constructor(private val repository: FirebaseRepositoryImpl): ViewModel() {
     private val _email = MutableLiveData<String>()
     val email: LiveData<String> = _email
 
@@ -23,11 +26,12 @@ class AuthetificationViewModel @Inject constructor(private val repository: Fireb
     private val _repeatPassword = MutableLiveData<String>()
     val repeatPassword: LiveData<String> = _repeatPassword
 
-    private val _isEmailVerified = MutableLiveData<Boolean>(false)
-    val isEmailVerified: LiveData<Boolean> = _isEmailVerified
+    private val _isEmailVerified = MutableLiveData(false)
+    private val isEmailVerified: LiveData<Boolean> = _isEmailVerified
 
     init {
         repository.isEmailVerified.observeForever{ _isEmailVerified.value=it }
+
     }
 
     fun onEmailChanged(email: String) {
@@ -99,6 +103,8 @@ class AuthetificationViewModel @Inject constructor(private val repository: Fireb
             if (success) {
                 navController.popBackStack()
                 navController.navigate(AppScreens.VerifyAccountScreen.route)
+                repository.sendVerificationEmail()
+                repository.updateEmailVerified()
             } else {
                 makeToast(context, "Failed to create account: $errorMessage", Toast.LENGTH_LONG)
             }
@@ -113,6 +119,7 @@ class AuthetificationViewModel @Inject constructor(private val repository: Fireb
                     navController.navigate(AppScreens.HomeScreen.route)
                 }else if(isEmailVerified.value==false){
                     repository.sendVerificationEmail()
+                    repository.updateEmailVerified()
                     navController.popBackStack()
                     navController.navigate(AppScreens.VerifyAccountScreen.route)
                 }
@@ -130,7 +137,7 @@ class AuthetificationViewModel @Inject constructor(private val repository: Fireb
     fun sendPasswordReset(context: Context, navController: NavController){
         repository.sendPasswordResetEmail(email.value.toString()){success, errorMessage ->
             if (success) {
-                if(repository.checkIfEmailVerified()){
+                if(repository.getEmailVerified()){
                     navController.popBackStack()
                     navController.navigate(AppScreens.HomeScreen.route)
                 } else{
@@ -142,4 +149,11 @@ class AuthetificationViewModel @Inject constructor(private val repository: Fireb
             }
         }
     }
+
+    fun onForgottenPasswordClicked(){
+        repository.sendVerificationEmail()
+        repository.updateEmailVerified()
+    }
+
+
 }

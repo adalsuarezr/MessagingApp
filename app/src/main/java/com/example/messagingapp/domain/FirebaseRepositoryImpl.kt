@@ -7,6 +7,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,6 +29,19 @@ class FirebaseRepositoryImpl @Inject constructor() : FirebaseRepository {
     private val _isEmailVerified =
         MutableLiveData<Boolean>(FirebaseAuth.getInstance().currentUser?.isEmailVerified!!)
     val isEmailVerified: LiveData<Boolean> = _isEmailVerified
+
+    override fun updateEmailVerified() {
+        val job = CoroutineScope(Dispatchers.IO).launch {
+            while (isEmailVerified.value == false || isEmailVerified.value == null) {
+                _isEmailVerified.postValue(FirebaseAuth.getInstance().currentUser?.isEmailVerified ?: false)
+                delay(5000)
+            }
+        }
+        if (_isEmailVerified.value == true) {
+            job.cancel()
+        }
+    }
+
     override fun createUserEmailPassword(
         email: String,
         password: String,
@@ -66,7 +83,7 @@ class FirebaseRepositoryImpl @Inject constructor() : FirebaseRepository {
         firebaseAuth.sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    if (checkIfEmailVerified()) {
+                    if (getEmailVerified()) {
                         callback(true, "success")
                     } else {
                         sendVerificationEmail()
@@ -92,7 +109,7 @@ class FirebaseRepositoryImpl @Inject constructor() : FirebaseRepository {
             .signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    if (checkIfEmailVerified()) {
+                    if (getEmailVerified()) {
                         callback(true, "success")
                     } else {
                         sendVerificationEmail()
@@ -115,7 +132,7 @@ class FirebaseRepositoryImpl @Inject constructor() : FirebaseRepository {
             }
     }
 
-    override fun checkIfEmailVerified(): Boolean {
+    override fun getEmailVerified(): Boolean {
         _isEmailVerified.value = FirebaseAuth.getInstance().currentUser?.isEmailVerified!!
         return FirebaseAuth.getInstance().currentUser?.isEmailVerified!!
     }

@@ -41,10 +41,10 @@ import com.example.messagingapp.navigation.AppScreens
 import com.example.messagingapp.screens.composables.MyAccessButton
 import com.example.messagingapp.screens.composables.MyTextField
 import com.example.messagingapp.screens.composables.MyTextLink
-import com.example.messagingapp.viewmodels.AuthetificationViewModel
+import com.example.messagingapp.viewmodels.AuthenticationViewModel
 
 @Composable
-fun SignUpScreen(navController: NavHostController, viewModel: AuthetificationViewModel) {
+fun SignUpScreen(navController: NavHostController, viewModel: AuthenticationViewModel) {
     val focusManager = LocalFocusManager.current
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")

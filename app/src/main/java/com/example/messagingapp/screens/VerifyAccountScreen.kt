@@ -22,11 +22,11 @@ import com.example.messagingapp.R
 import com.example.messagingapp.navigation.AppScreens
 import com.example.messagingapp.screens.composables.MyCircularLoadingIndicator
 import com.example.messagingapp.screens.composables.MyTextLink
-import com.example.messagingapp.viewmodels.AuthetificationViewModel
+import com.example.messagingapp.viewmodels.AuthenticationViewModel
 
 
 @Composable
-fun VerifyAccountScreen(navController: NavHostController, viewModel: AuthetificationViewModel) {
+fun VerifyAccountScreen(navController: NavHostController, viewModel: AuthenticationViewModel) {
     Column(
         Modifier.fillMaxSize().padding(top=24.dp),
         verticalArrangement = Arrangement.Top,

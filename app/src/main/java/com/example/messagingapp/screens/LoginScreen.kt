@@ -41,10 +41,10 @@ import com.example.messagingapp.navigation.AppScreens
 import com.example.messagingapp.screens.composables.MyAccessButton
 import com.example.messagingapp.screens.composables.MyTextField
 import com.example.messagingapp.screens.composables.MyTextLink
-import com.example.messagingapp.viewmodels.AuthetificationViewModel
+import com.example.messagingapp.viewmodels.AuthenticationViewModel
 
 @Composable
-fun LoginScreen(navController: NavHostController, viewModel: AuthetificationViewModel) {
+fun LoginScreen(navController: NavHostController, viewModel: AuthenticationViewModel) {
     val focusManager = LocalFocusManager.current
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
@@ -134,7 +134,10 @@ fun LoginScreen(navController: NavHostController, viewModel: AuthetificationView
         //Forgot password. Access ForgottenPasswordScreen
         MyTextLink(
             text = stringResource(id = R.string.forgot_password),
-            Modifier.padding(vertical = 12.dp),
+            Modifier.padding(vertical = 12.dp)
+                .clickable {
+                    viewModel.onForgottenPasswordClicked()
+                },
             navController,
             AppScreens.ForgottenPasswordScreen.route)
 

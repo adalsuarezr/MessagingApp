@@ -6,11 +6,11 @@ import androidx.navigation.compose.composable
 
 import androidx.navigation.compose.rememberNavController
 import com.example.messagingapp.screens.*
-import com.example.messagingapp.viewmodels.AuthetificationViewModel
+import com.example.messagingapp.viewmodels.AuthenticationViewModel
 import com.example.messagingapp.viewmodels.HomeViewModel
 
 @Composable
-fun AppNavigation(authVM: AuthetificationViewModel, homeVM:HomeViewModel) {
+fun AppNavigation(authVM: AuthenticationViewModel, homeVM:HomeViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = AppScreens.SplashScreen.route){
