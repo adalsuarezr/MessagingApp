@@ -27,6 +27,7 @@ import com.example.messagingapp.viewmodels.AuthenticationViewModel
 
 @Composable
 fun VerifyAccountScreen(navController: NavHostController, viewModel: AuthenticationViewModel) {
+    //todo isEmailVerify listener to update the screen
     Column(
         Modifier.fillMaxSize().padding(top=24.dp),
         verticalArrangement = Arrangement.Top,

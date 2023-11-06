@@ -50,6 +50,8 @@ fun SignUpScreen(navController: NavHostController, viewModel: AuthenticationView
     val password: String by viewModel.password.observeAsState(initial = "")
     val repeatPassword: String by viewModel.repeatPassword.observeAsState(initial = "")
     val context = LocalContext.current
+
+    //todo duplicated verification email
     Column(
         Modifier.fillMaxSize().padding(top=24.dp),
         verticalArrangement = Arrangement.Top,
@@ -188,7 +190,7 @@ fun SignUpScreen(navController: NavHostController, viewModel: AuthenticationView
         Row (Modifier.fillMaxWidth().padding(vertical=12.dp, horizontal = 24.dp), horizontalArrangement = Arrangement.SpaceAround){
             Image(
                 painterResource(id = R.drawable.google_192),
-                contentDescription = "dev signature",
+                contentDescription = "google logo",
                 Modifier
                     .clickable {  }
                     .size(64.dp)
@@ -198,7 +200,7 @@ fun SignUpScreen(navController: NavHostController, viewModel: AuthenticationView
             )
             Image(
                 painterResource(id = R.drawable.facebook_192),
-                contentDescription = "dev signature",
+                contentDescription = "facebook logo",
                 Modifier
                     .clickable {  }
                     .size(64.dp)
@@ -207,7 +209,7 @@ fun SignUpScreen(navController: NavHostController, viewModel: AuthenticationView
             )
             Image(
                 painterResource(id = R.drawable.x_96),
-                contentDescription = "dev signature",
+                contentDescription = "x logo??",//todo change this to the official logo
                 Modifier
                     .clickable { }
                     .size(64.dp)

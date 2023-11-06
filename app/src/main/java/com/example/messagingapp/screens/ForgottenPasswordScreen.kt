@@ -27,8 +27,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.messagingapp.R
+import com.example.messagingapp.navigation.AppScreens
 import com.example.messagingapp.screens.composables.MyAccessButton
 import com.example.messagingapp.screens.composables.MyTextField
+import com.example.messagingapp.screens.composables.MyTextLink
 import com.example.messagingapp.viewmodels.AuthenticationViewModel
 
 @Composable
@@ -78,11 +80,21 @@ fun ForgottenPasswordScreen(navController: NavHostController, viewModel: Authent
             errorMessage = {viewModel.emailErrorMessage(context, email)}
         )
 
+        //Go login link
+
+        MyTextLink(
+            text = stringResource(id = R.string.go_login),
+            Modifier.padding(vertical = 12.dp),
+            navController,
+            AppScreens.LoginScreen .route)
+
+
         //LoginButton. Access to Home
         MyAccessButton(
             text = stringResource(id = R.string.reset_password),
             onClick = {
                 viewModel.sendPasswordReset(context, navController)
+
             },
             enabled= viewModel.emailValidator(email),
             Modifier

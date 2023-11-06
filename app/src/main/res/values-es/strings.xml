@@ -4,6 +4,7 @@
 
     <string name="login">Login</string>
     <string name="sign_up">Sign Up</string>
+    <string name="go_login">ir al login</string>
     <string name="dont_have_account">No tienes una cuenta?</string>
     <string name="have_account">Tienes cuenta?</string>
     <string name="go_back_to">O vuelve a</string>
